@@ -44,3 +44,5 @@ Create the .eslintignore file too:
 node_modules
 dist
 ```
+
+8 - Install Husky - ` https://www.npmjs.com/package/husky` 
