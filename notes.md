@@ -71,20 +71,26 @@ dist
 
 ```
 export default {
-  roots: ["<rootDir>/src"],
-  // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
-
-  // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: undefined,
-
-  // The directory where Jest should output its coverage files
-  coverageDirectory: "<rootDir>/src/**/*.ts",
-
-  // An array of regexp pattern strings used to skip coverage collection
-  // coveragePathIgnorePatterns: [
-  //   "/node_modules/"
-  // ],
+  collectCoverageFrom: ["src/**/*.ts"],
+  coveragePathIgnorePatterns: [
+    "node_modules",
+    "test-config",
+    "interfaces",
+    "jestGlobalMocks.ts",
+    ".module.ts",
+    "<rootDir>/src/app/main.ts",
+    ".mock.ts",
+  ],
+  coverageDirectory: "<rootDir>/coverage/",
+  coverageThreshold: {
+    global: {
+      branches: 20,
+      functions: 30,
+      lines: 50,
+      statements: 50,
+    },
+  },
 
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: "v8",
@@ -94,6 +100,7 @@ export default {
     ".+\\.ts$": "ts-jest",
   },
 };
+
 ```
 
 15 - create `src/main.ts` and commit the changes.
@@ -105,4 +112,14 @@ export default {
 `{
   "*.ts": ["eslint 'src/**' --fix", "npm run test:staged", "git add"]
 }
-`
+
+18 - Install Prettier ` npm install prettier --save-dev  ` and create and set `.prettierrc` file:
+```
+{
+  "semi": false,
+  "trailingComma": "none",
+  "singleQuote": true,
+  "printWidth": 80
+}
+```
+
