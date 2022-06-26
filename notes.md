@@ -2,7 +2,7 @@ Steps
 
 1 - Run `npm init -y`
 
-2 - Run `npm install typescript @types/node --save-dev `
+2 - Run `npm install typescript @types/node ts-node --save-dev `
 
 3 -  `npm install git-commit-msg-linter --save-dev`
 
@@ -66,3 +66,43 @@ dist
 12 - Install Jest and your dependecies: `npm install jest @types/jest ts-jest --save-dev`
 
 13 - Run `npx jest --init` to initialize the configuration file. Follow the steps and procced.
+
+14 - Configure and set the file jest.config.ts:
+
+```
+export default {
+  roots: ["<rootDir>/src"],
+  // Indicates whether the coverage information should be collected while executing the test
+  collectCoverage: true,
+
+  // An array of glob patterns indicating a set of files for which coverage information should be collected
+  // collectCoverageFrom: undefined,
+
+  // The directory where Jest should output its coverage files
+  coverageDirectory: "<rootDir>/src/**/*.ts",
+
+  // An array of regexp pattern strings used to skip coverage collection
+  // coveragePathIgnorePatterns: [
+  //   "/node_modules/"
+  // ],
+
+  // Indicates which provider should be used to instrument code for coverage
+  coverageProvider: "v8",
+
+  // A map from regular expressions to paths to transformers
+  transform: {
+    ".+\\.ts$": "ts-jest",
+  },
+};
+```
+
+15 - create `src/main.ts` and commit the changes.
+
+16 - Add script `test:staged` in the `package.json` :
+`"test:staged": "jest"`
+
+17 - Add in the `.lintstagedrc.json` the stage test script, the file will be same like above:
+`{
+  "*.ts": ["eslint 'src/**' --fix", "npm run test:staged", "git add"]
+}
+`
