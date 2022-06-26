@@ -1,9 +1,13 @@
 Steps
 
 1 - Run `npm init -y`
-2 - Run `npm install typescript jest @types/jest @types/node --save-dev `
+
+2 - Run `npm install typescript @types/node --save-dev `
+
 3 -  `npm install git-commit-msg-linter --save-dev`
+
 4 - Create .gitignore file.
+
 5 - Create and set tsconfig.json :
 ```{
   "compilerOptions": {
@@ -45,4 +49,20 @@ node_modules
 dist
 ```
 
-8 - Install Husky - ` https://www.npmjs.com/package/husky` 
+8 - Install lint-staged : `npm install lint-staged --save-dev`
+
+9 - Create and set .lintstagedrc.json:
+```
+{
+  "*.ts": ["eslint 'src/**' --fix", "git add"]
+}
+```
+
+10 - Install Husky - ` https://www.npmjs.com/package/husky` 
+
+11 - create a pre-commit hook:
+`npx husky add .husky/pre-commit "npx lint-staged" `
+
+12 - Install Jest and your dependecies: `npm install jest @types/jest ts-jest --save-dev`
+
+13 - Run `npx jest --init` to initialize the configuration file. Follow the steps and procced.
