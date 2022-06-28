@@ -123,3 +123,11 @@ export default {
 }
 ```
 
+
+
+Refactors:
+
+use interfaces to type request/response - ok
+use CustomErrors to return specific errors in application
+use CustomHttpHelpers to return specific Http errors. badRequest/404
+use protocols to standardize the controllers
