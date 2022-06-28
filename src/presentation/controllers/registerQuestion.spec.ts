@@ -1,3 +1,4 @@
+import { MissingParamError } from './../errors/missing-param-error'
 import { RegisterQuestionController } from './registerQuestion'
 
 describe('RegisterQuestionController', () => {
@@ -8,7 +9,7 @@ describe('RegisterQuestionController', () => {
         answers: [
           {
             alternative: 1,
-            description: 'any_description',
+            statement: 'any_statement',
             isCorrectAnswer: false
           }
         ]
@@ -17,7 +18,7 @@ describe('RegisterQuestionController', () => {
     const httpResponse = sut.handle(httpRequest)
 
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new Error('Missing param: question'))
+    expect(httpResponse.body).toEqual(new MissingParamError('question'))
   })
   test('Should return 400 with no answers is provided ', () => {
     const sut = new RegisterQuestionController()
@@ -29,6 +30,6 @@ describe('RegisterQuestionController', () => {
     const httpResponse = sut.handle(httpRequest)
 
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new Error('Missing param: answers'))
+    expect(httpResponse.body).toEqual(new MissingParamError('answers'))
   })
 })
