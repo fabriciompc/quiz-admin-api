@@ -9,7 +9,7 @@ export class RegisterQuestionController {
     if (!httpRequest.body.answers) {
       return { statusCode: 400, body: new MissingParamError('answers') }
     }
-    const response = {} as HttpResponse
+    const response: HttpResponse = { statusCode: 200, body: {} }
     return response
   }
 }
