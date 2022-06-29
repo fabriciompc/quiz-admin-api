@@ -10,6 +10,13 @@ export class RegisterQuestionController {
     if (!httpRequest.body.answers) {
       return badRequest(new MissingParamError('answers'))
     }
+    const requiredFields = ['question', 'answers']
+
+    for (const field of requiredFields) {
+      if (!httpRequest.body[field]) {
+        return badRequest(new MissingParamError(field))
+      }
+    }
     const response: HttpResponse = { statusCode: 200, body: {} }
     return response
   }
