@@ -1,20 +1,29 @@
 import { badRequest } from '../helpers/http-helper'
-import { HttpRequest, HttpResponse } from '../protocols/http'
+import { HttpResponse } from '../protocols/http'
 import { MissingParamError } from './../errors/missing-param-error'
+import { HttpRequest } from './../protocols/http'
 
 export class RegisterQuestionController {
   handle(httpRequest: HttpRequest): HttpResponse {
-    if (!httpRequest.body.question) {
-      return badRequest(new MissingParamError('question'))
-    }
-    if (!httpRequest.body.answers) {
-      return badRequest(new MissingParamError('answers'))
-    }
     const requiredFields = ['question', 'answers']
+    const answersRequiredFields = [
+      'alternative',
+      'statement',
+      'isCorrectAnswer'
+    ]
 
     for (const field of requiredFields) {
       if (!httpRequest.body[field]) {
         return badRequest(new MissingParamError(field))
+      }
+    }
+
+    for (const answerField of answersRequiredFields) {
+      for (const field of httpRequest.body?.answers) {
+        const test = field
+        if (!field[answerField]) {
+          return badRequest(new MissingParamError(answerField))
+        }
       }
     }
     const response: HttpResponse = { statusCode: 200, body: {} }
