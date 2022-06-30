@@ -20,7 +20,6 @@ export class RegisterQuestionController {
 
     for (const answerField of answersRequiredFields) {
       for (const field of httpRequest.body?.answers) {
-        const test = field
         if (!field[answerField]) {
           return badRequest(new MissingParamError(answerField))
         }
